@@ -8,7 +8,6 @@ def poly_derivative(poly):
         return [0]
     if not isinstance(poly, list) or len(poly) < 2:
         return None
-    
     new_poly = []
     for x in range(1, len(poly)):
         new_poly.append(x * poly[x])
