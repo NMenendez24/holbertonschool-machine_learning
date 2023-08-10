@@ -2,6 +2,10 @@
 """Shebang"""
 
 
+pi = 3.1415926536
+e = 2.7182818285
+
+
 class Poisson:
     """Define a Poisson Class"""
     def __init__(self, data=None, lambtha=1.):
@@ -15,3 +19,13 @@ class Poisson:
             if len(data) < 2:
                 raise ValueError("data must contain multiple values")
             self.lambtha = sum(data) / len(data)
+
+    def pmf(self, k):
+        """Returns the pmf probability"""
+        k = k if type(k) == int else int(k)
+        if k < 0:
+            return 0
+        k_fact = 1
+        for i in range(k):
+            k_fact += k_fact * i
+        return ((e ** -self.lambtha * self.lambtha ** k) / (k_fact))
