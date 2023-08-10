@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
+"""Shebang"""
+
 
 class Poisson:
+    """Define a Poisson Class"""
     def __init__(self, data=None, lambtha=1.):
         if data is None:
             if lambtha <= 0:
