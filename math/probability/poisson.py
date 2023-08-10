@@ -29,3 +29,13 @@ class Poisson:
         for i in range(k):
             k_fact += k_fact * i
         return ((e ** -self.lambtha * self.lambtha ** k) / (k_fact))
+
+    def cdf(self, k):
+        """Returns the cdf"""
+        sum = 0
+        k = k if type(k) == int else int(k)
+        if k < 0:
+            return 0
+        for i in range(k + 1):
+            sum += self.pmf(i)
+        return sum
