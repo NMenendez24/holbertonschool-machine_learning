@@ -19,3 +19,15 @@ class Exponential:
             if len(data) < 2:
                 raise ValueError("data must contain multiple values")
             self.lambtha = 1 / (sum(data) / len(data))
+    
+    def pdf(self, x):
+        """Returns the pdf"""
+        if x < 0:
+            return 0
+        return self.lambtha * (e ** (-self.lambtha * x))
+
+    def cdf(self, x):
+        """returns the cdf"""
+        if x < 0:
+            return 0
+        return (1 - (e ** (-self.lambtha * x)))
