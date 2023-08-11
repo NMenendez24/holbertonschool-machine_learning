@@ -7,12 +7,13 @@ e = 2.7182818285
 
 
 class Binomial:
+    """Define a class binomial"""
     def __init__(self, data=None, n=1, p=0.5):
         if data is None:
-            if n < 0:
+            if n <= 0:
                 raise ValueError("n must be a positive value")
             self.n = round(n)
-            if p < 0 or p > 1:
+            if p <= 0 or p >= 1:
                 raise ValueError("p must be greater than 0 and less than 1")
             self.p = p
         else:
@@ -37,7 +38,7 @@ class Binomial:
         for i in range(1, self.n):
             fact_n += fact_n * i
         fact_k = 1
-        for i in range(1, k):
+        for i in range(1, self.k):
             fact_k += fact_k * i
         fact_n_k = 1
         for i in range(1, self.n - self.k):
@@ -48,6 +49,6 @@ class Binomial:
     def cdf(self, k):
         """returns the cdf"""
         cdf = 0
-        for i in range(k + 1):
+        for i in range(int(k) + 1):
             cdf += self.pmf(i)
         return cdf
