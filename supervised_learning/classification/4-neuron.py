@@ -44,5 +44,6 @@ class Neuron:
         return cost
 
     def evaluate(self, X, Y):
+        """Evaluates the neuron's predictions"""
         predictions = self.forward_prop(X)
         return (predictions >= 0.5).astype(int), self.cost(Y, predictions)
