@@ -69,18 +69,15 @@ class DeepNeuralNetwork:
         return (predictions >= 0.5).astype(int), self.cost(Y, predictions)
 
     def gradient_descent(self, Y, cache, alpha=0.05):
-        """Gradient descent algorithm"""
+        """Gradient Descent"""
         m = Y.shape[1]
-        dz = cache["A{}".format(self.__L)]
-
-        for layer in range(self.__L, 0, -1):
-            w = "W{}".format(layer)
-            b = "b{}".format(layer)
-            a = "A{}".format(layer - 1)
-
-            dW = 1 / m * np.matmul(dz, cache[a].T)
+        dz = cache["A{}".format(self.L)] - Y
+        for lyr in range(self.L, 0, -1):
+            wN = "W{}".format(lyr)
+            bN = "b{}".format(lyr)
+            aN = "A{}".format(lyr - 1)
+            dw = 1 / m * np.matmul(dz, cache[aN].T)
             db = 1 / m * np.sum(dz, axis=1, keepdims=True)
-            dz = (np.matmul(self.weights[w].T, dz)
-                  * ((cache[a]) * (1 - cache[a])))
-            self.__weights[w] -= alpha * dW
-            self.__weights[b] -= alpha * db
+            dz = np.matmul(self.weights[wN].T, dz)(cache[aN](1 - cache[aN]))
+            self.weights[wN] = self.weights[wN] - alpha * dw
+            self.weights[bN] = self.weights[bN] - alpha * db
