@@ -81,10 +81,7 @@ class DeepNeuralNetwork:
             # Compute gradients
             dw = 1 / m * np.matmul(dz, cache[aN].T)
             db = 1 / m * np.sum(dz, axis=1, keepdims=True)
-
-            # Update dz for the next iteration (if applicable)
-            if lyr > 1:
-                dz = np.matmul(self.__weights[wN].T, dz) * (cache[aN] * (1 - cache[aN]))
+            dz = np.matmul(self.__weights[wN].T, dz) * (cache[aN] * (1 - cache[aN]))
 
             # Update weights and biases
             self.__weights[wN] -= alpha * dw
