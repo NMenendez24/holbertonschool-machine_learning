@@ -71,13 +71,21 @@ class DeepNeuralNetwork:
     def gradient_descent(self, Y, cache, alpha=0.05):
         """Gradient Descent"""
         m = Y.shape[1]
-        dz = cache["A{}".format(self.L)] - Y
-        for lyr in range(self.L, 0, -1):
+        dz = cache["A{}".format(self.__L)] - Y
+
+        for lyr in range(self.__L, 0, -1):
             wN = "W{}".format(lyr)
             bN = "b{}".format(lyr)
-            aN = "A{}".format(lyr - 1)
+            aN = "A{}".format(lyr - 1)# Assuming "X" represents the input layer
+
+            # Compute gradients
             dw = 1 / m * np.matmul(dz, cache[aN].T)
             db = 1 / m * np.sum(dz, axis=1, keepdims=True)
-            dz = np.matmul(self.weights[wN].T, dz)(cache[aN](1 - cache[aN]))
-            self.weights[wN] = self.weights[wN] - alpha * dw
-            self.weights[bN] = self.weights[bN] - alpha * db
+
+            # Update dz for the next iteration (if applicable)
+            if lyr > 1:
+                dz = np.matmul(self.__weights[wN].T, dz) * (cache[aN] * (1 - cache[aN]))
+
+            # Update weights and biases
+            self.__weights[wN] -= alpha * dw
+            self.__weights[bN] -= alpha * db
