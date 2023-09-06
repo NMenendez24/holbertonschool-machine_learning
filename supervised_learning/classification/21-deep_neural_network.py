@@ -76,13 +76,12 @@ class DeepNeuralNetwork:
         for lyr in range(self.__L, 0, -1):
             wN = "W{}".format(lyr)
             bN = "b{}".format(lyr)
-            aN = "A{}".format(lyr - 1)# Assuming "X" represents the input layer
+            aN = "A{}".format(lyr - 1)
 
-            # Compute gradients
             dw = 1 / m * np.matmul(dz, cache[aN].T)
             db = 1 / m * np.sum(dz, axis=1, keepdims=True)
-            dz = np.matmul(self.__weights[wN].T, dz) * (cache[aN] * (1 - cache[aN]))
+            dz = (np.matmul(self.__weights[wN].T, dz) *
+                  (cache[aN] * (1 - cache[aN])))
 
-            # Update weights and biases
             self.__weights[wN] -= alpha * dw
             self.__weights[bN] -= alpha * db
